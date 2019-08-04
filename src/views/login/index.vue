@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     // 申明校验函数、
@@ -72,7 +73,11 @@ export default {
               'http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm
             ).then(res => {
               // res响应对象 包含响应主体
-              console.log(res.data)
+              // console.log(res.data)
+
+              // 存储用户信息
+              store.setUser(res.data.data)
+
               // 成功跳转到首页
               this.$router.push('/')
             }).catch(() => {
