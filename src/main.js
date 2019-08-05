@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
+
+// 组件库
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -10,6 +12,10 @@ import '@/style/index.less'
 import router from '@/router'
 
 import axios from '@/api'
+
+import myCom from '@/components'
+Vue.use(myCom)
+
 Vue.prototype.$http = axios
 
 // tip 控制台提示信息，开发环境来提示
