@@ -49,15 +49,15 @@
       <el-header>
           <span class="el-icon-s-fold" @click="toggleMenu()"></span>
           <span class="text"> 江苏传智博客科技教育有限公司 </span>
-          <el-dropdown class="my-dropdown">
+          <el-dropdown class="my-dropdown" @command="changeMenu">
               <span class="el-dropdown-link">
-                  <img src="../../assets/images/avatar.jpg" alt="">
-                  用户名称
+                  <img :src="photo" alt="">
+                  {{name}}
                   <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>个人设置</el-dropdown-item>
-                  <el-dropdown-item>退出登录</el-dropdown-item>
+                  <el-dropdown-item icon="el-icon-setting" @click.native="setting()">个人设置</el-dropdown-item>
+                  <el-dropdown-item icon="el-icon-unlock" @click.native="logout()">退出登录</el-dropdown-item>
               </el-dropdown-menu>
           </el-dropdown>
       </el-header>
@@ -70,16 +70,42 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      name: '',
+      phpto: ''
     }
+  },
+  created () {
+    // 本地获取用户信息
+    const user = store.getUser()
+    this.name = user.name
+    this.photo = user.photo
   },
   methods: {
     toggleMenu () {
       // 切换侧边栏展开与收起。默认是展开
+
       this.isCollapse = !this.isCollapse
+    },
+    setting () {
+      // click 是点击事件，是原生的事件
+      // 期望 把事件绑定在组件解析后的原生dom 上
+      // this.$router.push({ name: 'setting' })
+      this.$router.push('/setting')
+    },
+    logout () {
+      // 清除信息并进行跳转
+      store.clearUser()
+      this.$router.push({ name: 'login' })
+    },
+    // 绑定事件的时候 不加括号  为了接受默认参数
+    changeMenu (menuType) {
+      // menuType 是变量  值 setting  logout
+      this[menuType]()
     }
   }
 }
