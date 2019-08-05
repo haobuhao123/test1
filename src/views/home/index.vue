@@ -7,6 +7,7 @@
         <el-menu
             :collapse="isCollapse"
             :collapse-transition="false"
+
             :default-active="$route.path"
 
             background-color="#002033"

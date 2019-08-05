@@ -65,25 +65,36 @@ export default {
   methods: {
     login () {
       // 对整个表单进行校验
-      this.$refs.loginForm.validate(valid => {
+      // 加关键字 async
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          // 请求登录接口
-          this.$http
-            .post(
-              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm
-            ).then(res => {
-              // res响应对象 包含响应主体
-              // console.log(res.data)
+          // // 请求登录接口
+          // this.$http
+          //   .post(
+          //     'http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm
+          //   ).then(res => {
+          //     // res响应对象 包含响应主体
+          //     // console.log(res.data)
 
-              // 存储用户信息
-              store.setUser(res.data.data)
+          //     // 存储用户信息
+          //     store.setUser(res.data.data)
 
-              // 成功跳转到首页
-              this.$router.push('/')
-            }).catch(() => {
-              // 错误提示
-              this.$message.error('手机号或验证码错误')
-            })
+          //     // 成功跳转到首页
+          //     this.$router.push('/')
+          //   }).catch(() => {
+          //     // 错误提示
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+
+          // async&await使用  怎么处理错误 try{}catch(e){} 捕获异常
+          try {
+            const { data: { data } } = await this.$http.post('authorizations', this.loginForm) // 记得要传参this.loginForm
+            store.setUser(data)
+            // 登录成功跳转到首页
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
