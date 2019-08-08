@@ -49,13 +49,13 @@
       <el-header>
           <span class="el-icon-s-fold" @click="toggleMenu()"></span>
           <span class="text"> 江苏传智博客科技教育有限公司 </span>
-          <el-dropdown class="my-dropdown" @command="changeMenu">
+          <el-dropdown class="my-dropdown" >
               <span class="el-dropdown-link">
                   <img :src="photo" alt="">
                   {{name}}
                   <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
-              <el-dropdown-menu slot="dropdown">
+              <el-dropdown-menu slot="dropdown" >
                   <el-dropdown-item icon="el-icon-setting" @click.native="setting()">个人设置</el-dropdown-item>
                   <el-dropdown-item icon="el-icon-unlock" @click.native="logout()">退出登录</el-dropdown-item>
               </el-dropdown-menu>
@@ -101,12 +101,12 @@ export default {
       // 清除信息并进行跳转
       store.clearUser()
       this.$router.push({ name: 'login' })
-    },
-    // 绑定事件的时候 不加括号  为了接受默认参数
-    changeMenu (menuType) {
-      // menuType 是变量  值 setting  logout
-      this[menuType]()
     }
+    // 绑定事件的时候 不加括号  为了接受默认参数
+    // changeMenu (menuType) {
+    //   // menuType 是变量  值 setting  logout
+    //   this[menuType]()
+    // }
   }
 }
 </script>

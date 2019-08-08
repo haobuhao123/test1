@@ -3,8 +3,21 @@ import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
 
+import JSONBig from 'json-bigint'
+
 // 进行配置
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+axios.defaults.transformResponse = [
+  (data) => {
+  //  data 此时是后端的原始数据
+  // data后台如果没有返回数据 值为null
+  // JSONBig.parse(null) 报错，组织程序执行
+    try {
+      return JSONBig.parse(data)// JSONBig 记得要在上面导出，否则会报错 undefind
+    } catch (e) {
+      return data
+    }
+  }]
 // 请求头 自定义字段
 
 // 下面这段代码只会执行一次
