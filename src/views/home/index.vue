@@ -27,7 +27,7 @@
                 <i class="el-icon-picture"></i>
                 <span slot="title">素材管理</span>
             </el-menu-item>
-            <el-menu-item index=" /publish">
+            <el-menu-item index="/publish">
                 <i class="el-icon-position"></i>
                 <span slot="title">发布文章</span>
             </el-menu-item>
