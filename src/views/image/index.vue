@@ -142,12 +142,12 @@ export default {
 .img_list {
   margin-top: 20px;
   .img_item {
-    width: 160px;
+    width: 200px;
     height: 160px;
     border: 1px dashed #ddd;
     position: relative;
     display: inline-block;
-    margin-right: 40px;
+    margin-right: 50px;
     margin-bottom: 20px;
     img {
       width: 100%;

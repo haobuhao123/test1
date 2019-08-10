@@ -32,9 +32,9 @@
 
               <!-- 使用自己组件 -->
               <!-- 使用v-model 背后 就相当于绑了一个 :value 和 @input -->
-          <my-channel v-model="reqParams.channel_id"></my-channel>
+             <my-channel v-model="reqParams.channel_id"></my-channel>
           </el-form-item>
-          <el-form-item label="日期:">
+          <el-form-item label="日期:"> <my-channel v-model="reqParams.channel_id"></my-channel>
             <el-date-picker
               v-model="dateArr"
               type="daterange"
@@ -60,9 +60,9 @@
         <el-table :data="articles">
             <el-table-column label="封面">
               <template slot-scope="scope">
-                <el-image :src="scope.row.cover.images[0]" fit="cover"    style="width:120px;height:80px">
+                <el-image :src="scope.row.cover.images[0]" fit="cover"    style="width:120px;height:120px">
                   <div slot="error">
-                    <img src="../../assets/images/error.gif"    style="width:120px;height:80px" alt="">
+                    <img src="../../assets/images/error.gif"    style="width:120px;height:10px" alt="">
                   </div>
                 </el-image>
               </template>

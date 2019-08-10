@@ -18,6 +18,7 @@
 export default {
   // 注意：必须声明 name 属性，否则会报错。错误为【'toLowerCase' of undefined】
   name: 'my-channel',
+
   props: ['value'],
   data () {
     return {
