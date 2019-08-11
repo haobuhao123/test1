@@ -15,32 +15,40 @@
         <div class="img_item" v-for="item in images" :key="item.id">
           <img :src="item.url" alt />
           <div class="foot" v-show="!reqParams.collect">
-            <span class="el-icon-star-off selected" @click="toggleCollect(item)" :class="{selected:item.is_collected}"></span>
-            <span class="el-icon-delete" @click="deleteImage(item.id)"></span>
+            <span
+              @click="toggleCollect(item)"
+              class="el-icon-star-off"
+              :class="{selected:item.is_collected}"
+            ></span>
+            <span @click="deleteImage(item.id)" class="el-icon-delete"></span>
           </div>
         </div>
       </div>
-      <!-- 带背景色的分页 -->
-        <el-pagination v-if="total > reqParams.per_page" background layout="prev, pager, next" :total="total" :page-size="reqParams.per_page" :current-page="reqParams.page" @current-change="changePager"></el-pagination>
-
+      <el-pagination
+        v-if="total > reqParams.per_page"
+        background
+        layout="prev, pager, next"
+        :total="total"
+        :page-size="reqParams.per_page"
+        :current-page="reqParams.page"
+        @current-change="changePager"
+      ></el-pagination>
     </el-card>
-
     <el-dialog title="添加素材" :visible.sync="dialogVisible" width="300px">
-        <el-upload
-                class="avatar-uploader"
-                action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
-                :show-file-list="false"
-                :on-success="handleSuccess"
-                :headers="uploadHeaders"
-                name="image" >
-            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-
-        <span>上传组件</span>
-        <span slot="footer" class="dialog-footer">
+      <el-upload
+        class="avatar-uploader"
+        action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
+        :show-file-list="false"
+        :on-success="handleSuccess"
+        :headers="uploadHeaders"
+        name="image"
+      >
+        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        </span>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -50,8 +58,9 @@ import store from '@/store'
 export default {
   data () {
     return {
+      // 提交参数
       reqParams: {
-        // 默认值，全部
+        // 默认值 全部
         collect: false,
         page: 1,
         per_page: 10
@@ -62,7 +71,7 @@ export default {
       total: 0,
       // 控制对话框显示隐藏
       dialogVisible: false,
-      // 上传成功后图片地址
+      // 上传成功后的图片地址
       imageUrl: null,
       // 上传组件的头部信息
       uploadHeaders: {
@@ -75,21 +84,18 @@ export default {
     this.getImages()
   },
   methods: {
-    // 删除图片
+    // 删除
     deleteImage (id) {
       this.$confirm('老铁，此操作将永久删除该素材, 是否继续?', '温馨提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        // 删除接口地址`user/images/${id}`
         await this.$http.delete(`user/images/${id}`)
         this.$message.success('删除成功')
-        // 删除成功后更新列表
         this.getImages()
       }).catch(() => {})
     },
-
     // 添加收藏 取消收藏
     async toggleCollect (item) {
       const {
@@ -103,6 +109,7 @@ export default {
     // 上传成功
     handleSuccess (res) {
       // 1. 获取图片地址显示img标签
+      // console.log(res) res.data.url 图片地址
       this.imageUrl = res.data.url
       // 2. 提示上传成功
       this.$message.success('上传成功')
@@ -115,16 +122,16 @@ export default {
     },
     // 打开对话框
     openDialog () {
-      // 打开前清空预览图片
+      // 打开前清空预览的图片
       this.imageUrl = null
       this.dialogVisible = true
     },
-    changePager (newPage) {
-      this.reqParams.page = newPage
+    changeCollect () {
+      this.reqParams.page = 1
       this.getImages()
     },
-    changeCollect (val) {
-      this.reqParams.page = 1
+    changePager (newPage) {
+      this.reqParams.page = newPage
       this.getImages()
     },
     async getImages () {
@@ -142,12 +149,12 @@ export default {
 .img_list {
   margin-top: 20px;
   .img_item {
-    width: 200px;
+    width: 170px;
     height: 160px;
     border: 1px dashed #ddd;
     position: relative;
     display: inline-block;
-    margin-right: 50px;
+    margin-right: 100px;
     margin-bottom: 20px;
     img {
       width: 100%;
